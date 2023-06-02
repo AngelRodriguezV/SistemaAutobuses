@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        
+        <ui:composition template=".././templates/loginTemplateBootstrap.xhtml">
+            <ui:define name="tittle">
+                <h1 class="h1">Crear Usuario</h1>
+            </ui:define>
+            <ui:define name="content">
+                <h:form>
+                    <div class="input-group mb-3">
+                        <h:outputLabel for="nombre" class="input-group-text">Nombre</h:outputLabel>
+                        <h:inputText value="#{addUsuario.usuario.nombre}" 
+                                     id="nombre" 
+                                     required="true"
+                                     class="form-control">
+                            <f:validateRegex pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]{3,30}"/>
+                        </h:inputText>
+                    </div>
+                    <div class="input-group mb-3">
+                        <h:outputLabel for="apellido" class="input-group-text">Apellido</h:outputLabel>
+                        <h:inputText value="#{addUsuario.usuario.apellido}"
+                                     id="apellido" 
+                                     required="true"
+                                     class="form-control">
+                            <f:validateRegex pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]{3,30}"/>
+                        </h:inputText>
+                    </div>
+                    <div class="input-group mb-3">
+                        <h:outputLabel for="usuario" class="input-group-text">Usuario</h:outputLabel>
+                        <h:inputText value="#{addUsuario.usuario.email}"
+                                     id="usuario"
+                                     required="true"
+                                     class="form-control" >
+                            <f:validateRegex pattern="[a-zA-Z0-9._]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,5}"/>
+                        </h:inputText>
+                    </div>
+                    <div class="input-group mb-3">
+                        <h:outputLabel for="password" class="input-group-text">Contraseña</h:outputLabel>
+                        <h:inputText value="#{addUsuario.usuario.password}"
+                                     id="password"
+                                     required="true"
+                                     class="form-control">
+                            <f:validateRegex pattern="[a-zA-Z0-9.-@#$%]{30}"/>
+                        </h:inputText>
+                    </div>
+                    <h:commandButton value="Crear Usuario" action="index" actionListener="#{addUsuario.agregarUsuario()}" class="btn btn-primary mb-3"/>
+                </h:form>
+                
+            </ui:define>
+        </ui:composition>
+        
+    </h:body>
+</html>
