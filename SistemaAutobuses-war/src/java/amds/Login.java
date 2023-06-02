@@ -7,6 +7,9 @@ package amds;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
+import javax.ejb.EJB;
+import logica_negocio.LnUsuario;
+import modelo.Usuario;
 
 /**
  *
@@ -15,8 +18,25 @@ import java.io.Serializable;
 @Named(value = "login")
 @SessionScoped
 public class Login implements Serializable {
+    
+    @EJB
+    private LnUsuario lnUsuario;
+    
+    private Usuario usuario;
 
     public Login() {
+        usuario = new Usuario();
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
     
+    public void validarUsuario() {
+        
+    }
 }
