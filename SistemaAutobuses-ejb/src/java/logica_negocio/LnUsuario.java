@@ -55,4 +55,11 @@ public class LnUsuario {
         usuarioFacade.edit(usuario);
     }
     
+    public Usuario finUsuarioByEmail(String email) {
+        return usuarioFacade.getUsuarioByEmail(email);
+    }
+    
+    public Usuario finUsuarioValidar(String email, String password) {
+        return usuarioFacade.getUsuarioBySession(email, password);
+    }
 }

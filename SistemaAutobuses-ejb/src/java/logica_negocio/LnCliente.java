@@ -55,4 +55,8 @@ public class LnCliente {
         clienteFacade.edit(cliente);
     }
     
+    public Cliente finClienteByUsuario(int idUsuario) {
+        return clienteFacade.getClienteByUsuario(idUsuario);
+    }
+    
 }

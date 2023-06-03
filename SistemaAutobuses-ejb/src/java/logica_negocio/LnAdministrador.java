@@ -54,5 +54,8 @@ public class LnAdministrador {
     public void editAdministrador(Administrador administrador) {
         administradorFacade.edit(administrador);
     }
-    
+ 
+    public Administrador finAdministradorByUsuario(int idUsuario) {
+        return administradorFacade.getAdministradorByUsuario(idUsuario);
+    }
 }

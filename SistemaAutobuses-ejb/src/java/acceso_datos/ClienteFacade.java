@@ -4,9 +4,11 @@
  */
 package acceso_datos;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import modelo.Cliente;
 
 /**
@@ -26,6 +28,16 @@ public class ClienteFacade extends AbstractFacade<Cliente> {
 
     public ClienteFacade() {
         super(Cliente.class);
+    }
+    
+    public Cliente getClienteByUsuario(int idUsuario) {
+        TypedQuery<Cliente> query = em.createNamedQuery("Cliente.findByIdUsuario", Cliente.class);
+        query.setParameter("idUsuario", idUsuario);
+        List<Cliente> clientes = query.getResultList();
+        if (!clientes.isEmpty()) {
+            return clientes.get(0);
+        }
+        return null;
     }
     
 }

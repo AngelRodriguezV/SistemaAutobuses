@@ -8,6 +8,8 @@ import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import javax.ejb.EJB;
+import logica_negocio.LnAdministrador;
+import logica_negocio.LnCliente;
 import logica_negocio.LnUsuario;
 import modelo.Usuario;
 
@@ -21,6 +23,13 @@ public class Login implements Serializable {
     
     @EJB
     private LnUsuario lnUsuario;
+    
+    @EJB
+    private LnCliente lnCliente;
+    
+    @EJB
+    private LnAdministrador lnAdministrador;
+    
     
     private Usuario usuario;
 
@@ -37,6 +46,15 @@ public class Login implements Serializable {
     }
     
     public void validarUsuario() {
-        
+        Usuario aux = lnUsuario.finUsuarioValidar(usuario.getEmail(), usuario.getPassword());
+        if (aux != null) {
+            usuario = aux;
+            if (lnCliente.finClienteByUsuario((int)usuario.getIdUsuario()) != null) {
+                System.out.print("Session cliente");
+            }
+            if (lnAdministrador.finAdministradorByUsuario((int)usuario.getIdUsuario()) != null) {
+                System.out.print("Session Administrador");
+            }
+        }
     }
 }

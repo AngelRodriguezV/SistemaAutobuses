@@ -4,9 +4,11 @@
  */
 package acceso_datos;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import modelo.Administrador;
 
 /**
@@ -26,6 +28,16 @@ public class AdministradorFacade extends AbstractFacade<Administrador> {
 
     public AdministradorFacade() {
         super(Administrador.class);
+    }
+    
+    public Administrador getAdministradorByUsuario(int idUsuario) {
+        TypedQuery<Administrador> query = em.createNamedQuery("Administrador.findByIdUsuario", Administrador.class);
+        query.setParameter("idUsuario", idUsuario);
+        List<Administrador> clientes = query.getResultList();
+        if (!clientes.isEmpty()) {
+            return clientes.get(0);
+        }
+        return null;
     }
     
 }

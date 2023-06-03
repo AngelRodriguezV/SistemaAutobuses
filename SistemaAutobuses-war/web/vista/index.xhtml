@@ -17,17 +17,23 @@
                 <h:form>
                     <div class="input-group mb-3">
                         <h:outputLabel class="input-group-text">Usuario</h:outputLabel>
-                        <h:inputText class="form-control">
+                        <h:inputText 
+                            id="usuario"
+                            value="#{login.usuario.email}"
+                            class="form-control">
                             <f:param name="usuario"/>
                         </h:inputText>
                     </div>
                     <div class="input-group mb-3">
                         <h:outputLabel class="input-group-text">Contraseña </h:outputLabel>
-                        <h:inputText  class="form-control">
+                        <h:inputText
+                            id="password"
+                            value="#{login.usuario.password}"
+                            class="form-control">
                               
                         </h:inputText>
                     </div>
-                    <h:commandLink value="Iniciar" action="clienteMenu" class="btn btn-primary mb-3"/>
+                    <h:commandButton value="Iniciar" action="#{login.validarUsuario()}" class="btn btn-primary mb-3"/>
                 </h:form>
                 <h:form>
                     <h:commandLink value="Crear cuenta" action="newUsuario"/>
