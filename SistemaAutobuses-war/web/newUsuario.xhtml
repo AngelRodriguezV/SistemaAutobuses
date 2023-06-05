@@ -10,7 +10,7 @@
     </h:head>
     <h:body>
         
-        <ui:composition template=".././templates/loginTemplateBootstrap.xhtml">
+        <ui:composition template="./templates/loginTemplateBootstrap.xhtml">
             <ui:define name="title">Crear Usuario</ui:define>
             <ui:define name="tittle">
                 <p:outputLabel class="h1">Crear Usuario</p:outputLabel>
@@ -82,7 +82,7 @@
                             </p:inputText>
                         </div>
                     </p:outputPanel>
-                    <p:commandButton value="Crear Usuario" actionListener="#{addUsuario.agregarUsuario()}"/>
+                    <p:commandButton value="Crear Usuario" action="#{addUsuario.agregarUsuario()}"/>
                 </h:form>
                 
             </ui:define>

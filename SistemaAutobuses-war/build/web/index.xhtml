@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title></title>
+    </h:head>
+    <h:body>
+        <ui:composition template="./templates/page_inicio.xhtml">
+            
+            <ui:define name="title">Inicio</ui:define>
+            <ui:define name="menu">
+                <div class="mb-3">
+                    <h:form rendered="#{login.isCliente()}">
+                        <p:commandButton value="Inicio" action="index"/>
+                        <p:commandButton value="Horarios" action="clienteHorarios"/>
+                        <p:commandButton value="Recibos" action="clienteRecibos"/>
+                        <p:commandButton value="Boletos" action="clienteBoletos"/>
+                    </h:form>
+                    <h:form rendered="#{login.isAdmin()}">
+                        <p:commandButton value="Inicio" action="index"/>
+                        <p:commandButton value="Teminal" action="clienteHorarios"/>
+                        <p:commandButton value="Autobuses" />
+                        <p:commandButton value="Clientes" />
+                    </h:form>
+                </div>
+                <p:outputLabel class="h3 text-light" rendered="#{login.loginSession}">Usuario: #{login.usuario.nombre}</p:outputLabel>
+            </ui:define>
+            
+            <ui:define name="content">
+                
+                <h:form rendered="#{!login.loginSession}">
+                    <p:commandButton action="loginUsuario" value="Iniciar Sesion"/>
+                </h:form>
+                
+            </ui:define>
+            
+        </ui:composition>
+        
+        
+    </h:body>
+</html>

@@ -88,21 +88,24 @@ public class AddUsuario implements Serializable {
         this.tipoUsuario = tipoUsuario;
     }
     
-    public void agregarUsuario() {
+    public String agregarUsuario() {
         lnUsuario.addUsuario(usuario);
         System.out.print(usuario.toString());
         if (tipoCliente()) {
             cliente.setIdUsuario(usuario);
             cliente.setFechaIngreso(new Date());
             lnCliente.addCliente(cliente);
+            return "loginUsuario";
         }
         if (tipoAdmin()) {
             administrador.setIdUsuario(usuario);
             lnAdmin.addAdministrador(administrador);
+            return "loginUsuario";
         }
         usuario = new Usuario();
         cliente = new Cliente();
         administrador = new Administrador();
+        return null;
     }
     
     public boolean tipoCliente() {

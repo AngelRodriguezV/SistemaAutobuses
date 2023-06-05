@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        
+        <ui:composition template="./templates/loginTemplateBootstrap.xhtml">
+            
+            <ui:define name="title">Comprar Boleto</ui:define>
+            
+            <ui:define name="tittle">
+                <p:outputLabel class="h1">Comprar boleto</p:outputLabel>
+            </ui:define>
+            <ui:define name="content">
+                <h:form>
+                    <p:messages/>
+                    <div class="mb-3">
+                        <p:outputLabel class="col-3">Catidad de Asientos</p:outputLabel>
+                        <p:inputText
+                            value="#{addComprarBoleto.recibo.cantidadAsientos}"
+                            required="true"
+                            class="col-4">
+                            <f:validateLength minimum="1" maximum="#{addComprarBoleto.horario.asientosDisponibles}"/>
+                            <p:ajax listener="#{addComprarBoleto.calcularImporte}" update="importe"/>
+                        </p:inputText>
+                    </div>
+                    <div class="mb-3">
+                        <p:outputLabel id="importe" class="col-3">Importe #{addComprarBoleto.recibo.importe}</p:outputLabel>
+                    </div>
+                    
+                    <p:commandButton action="#{addComprarBoleto.comprarBoleto()}" value="Comprar" class="mb-3"/>
+                </h:form>
+            </ui:define>
+            
+        </ui:composition>
+        
+    </h:body>
+</html>
