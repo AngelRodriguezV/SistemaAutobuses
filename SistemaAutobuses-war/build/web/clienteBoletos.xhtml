@@ -54,6 +54,22 @@
                             </f:facet>
                             <h:outputText value="#{item.idRecibo.idHorario.terminalDestino.nombre}"/>
                         </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Fella de salida"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idRecibo.idHorario.fechaSalida}">
+                                <f:convertDateTime pattern="dd/MMM/yyyy" locale="es-MX" dateStyle="medium"/>
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Fella de llegada"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idRecibo.idHorario.fechaLlegada}">
+                                <f:convertDateTime pattern="dd/MMM/yyyy" locale="es-MX" dateStyle="medium"/>
+                            </h:outputText>
+                        </h:column>
                     </h:dataTable>
 
                 </h:form>

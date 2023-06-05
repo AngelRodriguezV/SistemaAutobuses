@@ -24,6 +24,7 @@
                             id="nombre"
                             required="true"
                             class="col-4">
+                            <f:validateRegex pattern="([a-zA-ZñÑáéíóúÁÉÍÓÚ\s]{3,30})"/>
                         </p:inputText>
                     </div>
                     <div class="mb-3">
@@ -33,6 +34,7 @@
                             id="apellido"
                             required="true"
                             class="col-4">
+                            <f:validateRegex pattern="([a-zA-ZñÑáéíóúÁÉÍÓÚ\s]{3,30})"/>
                         </p:inputText>
                     </div>
                     <div class="mb-3">
@@ -42,6 +44,7 @@
                             id="usuario"
                             required="true"
                             class="col-4">
+                            <f:validator validatorId="emailValidador"/>
                         </p:inputText>
                     </div>
                     <div class="mb-3">
@@ -64,21 +67,25 @@
                         <div class="mb-3" style="display: #{addUsuario.tipoCliente()?'':'none'}">
                             <p:outputLabel class="col-3">Telefono</p:outputLabel>
                             <p:inputText value="#{addUsuario.cliente.telefono}" class="col-4">
+                                <f:validateRegex pattern="([0-9]{3}+[0-9]{3}+[0-9]{2}+[0-9]{2})"/>
                             </p:inputText>
                         </div>
                         <div class="mb-3" style="display: #{addUsuario.tipoCliente()?'':'none'}">
                             <p:outputLabel class="col-3">Dirección</p:outputLabel>
                             <p:inputText value="#{addUsuario.cliente.direccion}" class="col-4">
+                                <f:validateRegex pattern="([a-zA-ZñÑáéíóúÁÉÍÓÚ#0-9\s]{3,50})"/>
                             </p:inputText>
                         </div>
                         <div class="mb-3" style="display: #{addUsuario.tipoAdmin()?'':'none'}">
                             <p:outputLabel class="col-3">Fecha Contrato</p:outputLabel>
                             <p:inputText value="#{addUsuario.administrador.fechaContrato}" class="col-4">
+                                <f:convertDateTime type="date" pattern="dd/MM/yyyy"/>
                             </p:inputText>
                         </div>
                         <div class="mb-3" style="display: #{addUsuario.tipoAdmin()?'':'none'}">
                             <p:outputLabel class="col-3">Puesto</p:outputLabel>
                             <p:inputText value="#{addUsuario.administrador.puesto}" class="col-4">
+                                <f:validateRegex pattern="([a-zA-ZñÑáéíóúÁÉÍÓÚ\s]{3,30})"/>
                             </p:inputText>
                         </div>
                     </p:outputPanel>
