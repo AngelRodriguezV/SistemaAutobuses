@@ -4,10 +4,15 @@
  */
 package amds;
 
+import java.io.IOException;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
+import javax.faces.context.ExternalContext;
+import javax.inject.Inject;
 import logica_negocio.LnAdministrador;
 import logica_negocio.LnCliente;
 import logica_negocio.LnUsuario;
@@ -32,6 +37,9 @@ public class Login implements Serializable {
     
     
     private Usuario usuario;
+    
+    @Inject
+    private ExternalContext externalContext;
 
     public Login() {
         usuario = new Usuario();
@@ -51,10 +59,20 @@ public class Login implements Serializable {
             System.out.println("Usuario Valido");
             usuario = aux;
             if (lnCliente.finClienteByUsuario((int)usuario.getIdUsuario()) != null) {
-                System.out.print("Session cliente");
+                try {
+                    System.out.print("Session cliente");
+                    externalContext.redirect("faces/vista/InicioCliente.xhtml");
+                } catch (IOException ex) {
+                    Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
             if (lnAdministrador.finAdministradorByUsuario((int)usuario.getIdUsuario()) != null) {
-                System.out.print("Session Administrador");
+                try {
+                    System.out.print("Session Administrador");
+                    externalContext.redirect("InicioAdmin.xhtml");
+                } catch (IOException ex) {
+                    Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
         System.out.println("Usuario Invalido");

@@ -1,11 +1,42 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Facelet Title</title>
     </h:head>
     <h:body>
-        Hola cliente
+        
+        <ui:composition template=".././templates/page_inicio.xhtml">
+            <ui:define name="title">Inicio</ui:define>
+            <ui:define name="menu">
+                <p:commandButton value="Horarios">
+                    
+                </p:commandButton>
+                <p:commandButton value="Recibos">
+                    
+                </p:commandButton>
+                <p:commandButton value="Boletod">
+                    
+                </p:commandButton>
+            </ui:define>
+            <ui:define name="content">
+                <p:outputPanel id="panel1">
+                    <p:outputLabel>Bienvenido #{login.usuario.nombre}¡</p:outputLabel>
+                </p:outputPanel>
+            </ui:define>
+            <p:outputPanel id="panel2">
+                
+            </p:outputPanel>
+            <p:outputPanel id="panel3">
+                
+            </p:outputPanel>
+            <p:outputPanel id="panel4">
+                
+            </p:outputPanel>
+        </ui:composition>
+        
     </h:body>
 </html>
