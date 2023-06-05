@@ -5,6 +5,7 @@
 package modelo;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -18,6 +19,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -31,8 +34,8 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Recibo.findAll", query = "SELECT r FROM Recibo r"),
     @NamedQuery(name = "Recibo.findByIdRecibo", query = "SELECT r FROM Recibo r WHERE r.idRecibo = :idRecibo"),
-    @NamedQuery(name = "Recibo.findByFechaRegistro", query = "SELECT r FROM Recibo r WHERE r.fechaRegistro = :fechaRegistro"),
     @NamedQuery(name = "Recibo.findByCantidadAsientos", query = "SELECT r FROM Recibo r WHERE r.cantidadAsientos = :cantidadAsientos"),
+    @NamedQuery(name = "Recibo.findByFechaRegistro", query = "SELECT r FROM Recibo r WHERE r.fechaRegistro = :fechaRegistro"),
     @NamedQuery(name = "Recibo.findByImporte", query = "SELECT r FROM Recibo r WHERE r.importe = :importe")})
 public class Recibo implements Serializable {
 
@@ -42,12 +45,14 @@ public class Recibo implements Serializable {
     @Basic(optional = false)
     @Column(name = "id_recibo")
     private Integer idRecibo;
-    @Column(name = "fecha_registro")
-    private Integer fechaRegistro;
     @Column(name = "cantidad_asientos")
     private Integer cantidadAsientos;
+    @Column(name = "fecha_registro")
+    @Temporal(TemporalType.DATE)
+    private Date fechaRegistro;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "importe")
-    private Integer importe;
+    private Double importe;
     @JoinColumn(name = "id_cliente", referencedColumnName = "id_cliente")
     @ManyToOne
     private Cliente idCliente;
@@ -72,14 +77,6 @@ public class Recibo implements Serializable {
         this.idRecibo = idRecibo;
     }
 
-    public Integer getFechaRegistro() {
-        return fechaRegistro;
-    }
-
-    public void setFechaRegistro(Integer fechaRegistro) {
-        this.fechaRegistro = fechaRegistro;
-    }
-
     public Integer getCantidadAsientos() {
         return cantidadAsientos;
     }
@@ -88,11 +85,19 @@ public class Recibo implements Serializable {
         this.cantidadAsientos = cantidadAsientos;
     }
 
-    public Integer getImporte() {
+    public Date getFechaRegistro() {
+        return fechaRegistro;
+    }
+
+    public void setFechaRegistro(Date fechaRegistro) {
+        this.fechaRegistro = fechaRegistro;
+    }
+
+    public Double getImporte() {
         return importe;
     }
 
-    public void setImporte(Integer importe) {
+    public void setImporte(Double importe) {
         this.importe = importe;
     }
 

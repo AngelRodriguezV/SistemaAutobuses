@@ -35,19 +35,18 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Autobuse.findByNoAsientos", query = "SELECT a FROM Autobuse a WHERE a.noAsientos = :noAsientos")})
 public class Autobuse implements Serializable {
 
-    @Size(max = 13)
-    @Column(name = "matricula")
-    private String matricula;
-    @Size(max = 30)
-    @Column(name = "nombre")
-    private String nombre;
-
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id_autobuse")
     private Integer idAutobuse;
+    @Size(max = 13)
+    @Column(name = "matricula")
+    private String matricula;
+    @Size(max = 30)
+    @Column(name = "nombre")
+    private String nombre;
     @Column(name = "no_asientos")
     private Integer noAsientos;
     @OneToMany(mappedBy = "idAutobuse")
@@ -68,6 +67,21 @@ public class Autobuse implements Serializable {
         this.idAutobuse = idAutobuse;
     }
 
+    public String getMatricula() {
+        return matricula;
+    }
+
+    public void setMatricula(String matricula) {
+        this.matricula = matricula;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
 
     public Integer getNoAsientos() {
         return noAsientos;
@@ -109,22 +123,6 @@ public class Autobuse implements Serializable {
     @Override
     public String toString() {
         return "modelo.Autobuse[ idAutobuse=" + idAutobuse + " ]";
-    }
-
-    public String getMatricula() {
-        return matricula;
-    }
-
-    public void setMatricula(String matricula) {
-        this.matricula = matricula;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
     }
     
 }

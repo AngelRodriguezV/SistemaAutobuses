@@ -3,55 +3,86 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Facelet Title</title>
     </h:head>
     <h:body>
         
         <ui:composition template=".././templates/loginTemplateBootstrap.xhtml">
+            <ui:define name="title">Crear Usuario</ui:define>
             <ui:define name="tittle">
-                <h1 class="h1">Crear Usuario</h1>
+                <p:outputLabel class="h1">Crear Usuario</p:outputLabel>
             </ui:define>
             <ui:define name="content">
                 <h:form>
-                    <div class="input-group mb-3">
-                        <h:outputLabel for="nombre" class="input-group-text">Nombre</h:outputLabel>
-                        <h:inputText value="#{addUsuario.usuario.nombre}" 
-                                     id="nombre" 
-                                     required="true"
-                                     class="form-control">
-                            <f:validateRegex pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]{3,30}"/>
-                        </h:inputText>
+                    <div class="mb-3">
+                        <p:outputLabel class="col-3">Nombre</p:outputLabel>
+                        <p:inputText
+                            value="#{addUsuario.usuario.nombre}"
+                            id="nombre"
+                            required="true"
+                            class="col-4">
+                        </p:inputText>
                     </div>
-                    <div class="input-group mb-3">
-                        <h:outputLabel for="apellido" class="input-group-text">Apellido</h:outputLabel>
-                        <h:inputText value="#{addUsuario.usuario.apellido}"
-                                     id="apellido" 
-                                     required="true"
-                                     class="form-control">
-                            <f:validateRegex pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]{3,30}"/>
-                        </h:inputText>
+                    <div class="mb-3">
+                        <p:outputLabel class="col-3">Apellido</p:outputLabel>
+                        <p:inputText
+                            value="#{addUsuario.usuario.apellido}"
+                            id="apellido"
+                            required="true"
+                            class="col-4">
+                        </p:inputText>
                     </div>
-                    <div class="input-group mb-3">
-                        <h:outputLabel for="usuario" class="input-group-text">Usuario</h:outputLabel>
-                        <h:inputText value="#{addUsuario.usuario.email}"
-                                     id="usuario"
-                                     required="true"
-                                     class="form-control" >
-                            <f:validateRegex pattern="[a-zA-Z0-9._]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,5}"/>
-                        </h:inputText>
+                    <div class="mb-3">
+                        <p:outputLabel class="col-3">Email</p:outputLabel>
+                        <p:inputText
+                            value="#{addUsuario.usuario.email}"
+                            id="usuario"
+                            required="true"
+                            class="col-4">
+                        </p:inputText>
                     </div>
-                    <div class="input-group mb-3">
-                        <h:outputLabel for="password" class="input-group-text">Contraseña</h:outputLabel>
-                        <h:inputText value="#{addUsuario.usuario.password}"
-                                     id="password"
-                                     required="true"
-                                     class="form-control">
-                            <f:validateRegex pattern="[a-zA-Z0-9.-@#$%]{30}"/>
-                        </h:inputText>
+                    <div class="mb-3">
+                        <p:outputLabel class="col-3">Contraseña</p:outputLabel>
+                        <p:inputText
+                            value="#{addUsuario.usuario.password}"
+                            id="password"
+                            required="true"
+                            class="col-4">
+                        </p:inputText>
                     </div>
-                    <h:commandButton value="Crear Usuario" action="index" actionListener="#{addUsuario.agregarUsuario()}" class="btn btn-primary mb-3"/>
+                    <div class="mb-3">
+                        <p:outputLabel class="col-3">Tipo Usuario</p:outputLabel>
+                        <p:selectOneMenu value="#{addUsuario.tipoUsuario}" required="true" class="col-4">
+                            <f:selectItems value="#{addUsuario.tiposUsuarios}" var="item" itemLabel="#{item.toString()}"/>
+                            <p:ajax update="clienteUpdate" />
+                        </p:selectOneMenu>
+                    </div>
+                    <p:outputPanel id="clienteUpdate">
+                        <div class="mb-3" style="display: #{addUsuario.tipoCliente()?'':'none'}">
+                            <p:outputLabel class="col-3">Telefono</p:outputLabel>
+                            <p:inputText value="#{addUsuario.cliente.telefono}" class="col-4">
+                            </p:inputText>
+                        </div>
+                        <div class="mb-3" style="display: #{addUsuario.tipoCliente()?'':'none'}">
+                            <p:outputLabel class="col-3">Dirección</p:outputLabel>
+                            <p:inputText value="#{addUsuario.cliente.direccion}" class="col-4">
+                            </p:inputText>
+                        </div>
+                        <div class="mb-3" style="display: #{addUsuario.tipoAdmin()?'':'none'}">
+                            <p:outputLabel class="col-3">Fecha Contrato</p:outputLabel>
+                            <p:inputText value="#{addUsuario.administrador.fechaContrato}" class="col-4">
+                            </p:inputText>
+                        </div>
+                        <div class="mb-3" style="display: #{addUsuario.tipoAdmin()?'':'none'}">
+                            <p:outputLabel class="col-3">Puesto</p:outputLabel>
+                            <p:inputText value="#{addUsuario.administrador.puesto}" class="col-4">
+                            </p:inputText>
+                        </div>
+                    </p:outputPanel>
+                    <p:commandButton value="Crear Usuario" actionListener="#{addUsuario.agregarUsuario()}"/>
                 </h:form>
                 
             </ui:define>

@@ -19,6 +19,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -32,7 +33,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Administrador.findAll", query = "SELECT a FROM Administrador a"),
     @NamedQuery(name = "Administrador.findByIdAdministrador", query = "SELECT a FROM Administrador a WHERE a.idAdministrador = :idAdministrador"),
     @NamedQuery(name = "Administrador.findByFechaContrato", query = "SELECT a FROM Administrador a WHERE a.fechaContrato = :fechaContrato"),
-    @NamedQuery(name = "Administrador.findByIdUsuario", query = "SELECT a FROM Administrador a WHERE a.idAdministrador = :idAdministrador")})
+    @NamedQuery(name = "Administrador.findByPuesto", query = "SELECT a FROM Administrador a WHERE a.puesto = :puesto"),
+    @NamedQuery(name = "Administrador.findByIdUsuario", query = "SELECT a FROM Administrador a WHERE a.idUsuario.idUsuario = :idUsuario")})
 public class Administrador implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -44,9 +46,9 @@ public class Administrador implements Serializable {
     @Column(name = "fecha_contrato")
     @Temporal(TemporalType.DATE)
     private Date fechaContrato;
+    @Size(max = 30)
     @Column(name = "puesto")
-    @Temporal(TemporalType.DATE)
-    private Date puesto;
+    private String puesto;
     @JoinColumn(name = "id_usuario", referencedColumnName = "id_usuario")
     @ManyToOne
     private Usuario idUsuario;
@@ -74,11 +76,11 @@ public class Administrador implements Serializable {
         this.fechaContrato = fechaContrato;
     }
 
-    public Date getPuesto() {
+    public String getPuesto() {
         return puesto;
     }
 
-    public void setPuesto(Date puesto) {
+    public void setPuesto(String puesto) {
         this.puesto = puesto;
     }
 

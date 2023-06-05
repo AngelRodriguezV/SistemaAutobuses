@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 31-05-2023 a las 09:15:49
+-- Tiempo de generación: 05-06-2023 a las 05:57:22
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -20,18 +20,28 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `terminal_autobuse`
 --
+CREATE DATABASE IF NOT EXISTS `terminal_autobuse` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `terminal_autobuse`;
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `aministrador`
+-- Estructura de tabla para la tabla `administrador`
 --
 
-CREATE TABLE `aministrador` (
+CREATE TABLE `administrador` (
   `id_administrador` int(11) NOT NULL,
-  `fech_contrato` date DEFAULT NULL,
+  `fecha_contrato` date DEFAULT NULL,
+  `id_usuario` int(11) DEFAULT NULL,
   `puesto` varchar(30) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `administrador`
+--
+
+INSERT INTO `administrador` (`id_administrador`, `fecha_contrato`, `id_usuario`, `puesto`) VALUES
+(1, '2023-06-02', 8, NULL);
 
 -- --------------------------------------------------------
 
@@ -65,9 +75,18 @@ CREATE TABLE `boleto` (
 
 CREATE TABLE `cliente` (
   `id_cliente` int(11) NOT NULL,
-  `telefono` int(11) DEFAULT NULL,
-  `fech_ingreso` int(11) DEFAULT NULL
+  `telefono` int(10) DEFAULT NULL,
+  `direccion` varchar(50) DEFAULT NULL,
+  `fecha_ingreso` date DEFAULT NULL,
+  `id_usuario` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `cliente`
+--
+
+INSERT INTO `cliente` (`id_cliente`, `telefono`, `direccion`, `fecha_ingreso`, `id_usuario`) VALUES
+(1, 951888777, 'huixtepec', '2023-06-02', 7);
 
 -- --------------------------------------------------------
 
@@ -79,21 +98,11 @@ CREATE TABLE `horario` (
   `id_horario` int(11) NOT NULL,
   `terminal_origen` int(11) DEFAULT NULL,
   `terminal_destino` int(11) DEFAULT NULL,
+  `id_autobuse` int(11) DEFAULT NULL,
   `fecha_salida` date DEFAULT NULL,
   `fecha_llegada` date DEFAULT NULL,
-  `precio` double DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `horario_autobuse`
---
-
-CREATE TABLE `horario_autobuse` (
-  `id_autobuse` int(11) NOT NULL,
-  `id_horario` int(11) NOT NULL,
-  `asientos_disponibles` int(11) NOT NULL
+  `precio` double DEFAULT NULL,
+  `asientos_disponibles` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -104,10 +113,10 @@ CREATE TABLE `horario_autobuse` (
 
 CREATE TABLE `recibo` (
   `id_recibo` int(11) NOT NULL,
-  `fecha_registro` date DEFAULT NULL,
   `id_cliente` int(11) DEFAULT NULL,
   `id_horario` int(11) DEFAULT NULL,
-  `cand_asientos` int(11) DEFAULT NULL,
+  `cantidad_asientos` int(11) DEFAULT NULL,
+  `fecha_registro` date DEFAULT NULL,
   `importe` double DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -140,14 +149,26 @@ CREATE TABLE `usuario` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
+-- Volcado de datos para la tabla `usuario`
+--
+
+INSERT INTO `usuario` (`id_usuario`, `email`, `password`, `nombre`, `apellido`) VALUES
+(4, NULL, NULL, NULL, NULL),
+(5, NULL, NULL, NULL, NULL),
+(6, NULL, NULL, NULL, NULL),
+(7, 'angel@gmail.com', 'angel123', 'Angel', 'Rodriguez'),
+(8, 'jesus@gmail.com', 'jesus123', 'Jesus', 'Rodriguez');
+
+--
 -- Índices para tablas volcadas
 --
 
 --
--- Indices de la tabla `aministrador`
+-- Indices de la tabla `administrador`
 --
-ALTER TABLE `aministrador`
-  ADD KEY `id_administrador` (`id_administrador`);
+ALTER TABLE `administrador`
+  ADD PRIMARY KEY (`id_administrador`),
+  ADD KEY `id_usuario` (`id_usuario`);
 
 --
 -- Indices de la tabla `autobuse`
@@ -166,7 +187,8 @@ ALTER TABLE `boleto`
 -- Indices de la tabla `cliente`
 --
 ALTER TABLE `cliente`
-  ADD KEY `id_cliente` (`id_cliente`);
+  ADD PRIMARY KEY (`id_cliente`),
+  ADD KEY `id_usuario` (`id_usuario`);
 
 --
 -- Indices de la tabla `horario`
@@ -174,14 +196,8 @@ ALTER TABLE `cliente`
 ALTER TABLE `horario`
   ADD PRIMARY KEY (`id_horario`),
   ADD KEY `terminal_origen` (`terminal_origen`),
-  ADD KEY `terminal_destino` (`terminal_destino`);
-
---
--- Indices de la tabla `horario_autobuse`
---
-ALTER TABLE `horario_autobuse`
-  ADD KEY `id_autobuse` (`id_autobuse`),
-  ADD KEY `id_horario` (`id_horario`);
+  ADD KEY `terminal_destino` (`terminal_destino`),
+  ADD KEY `id_autobuse` (`id_autobuse`);
 
 --
 -- Indices de la tabla `recibo`
@@ -208,6 +224,12 @@ ALTER TABLE `usuario`
 --
 
 --
+-- AUTO_INCREMENT de la tabla `administrador`
+--
+ALTER TABLE `administrador`
+  MODIFY `id_administrador` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT de la tabla `autobuse`
 --
 ALTER TABLE `autobuse`
@@ -218,6 +240,12 @@ ALTER TABLE `autobuse`
 --
 ALTER TABLE `boleto`
   MODIFY `id_boleto` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `cliente`
+--
+ALTER TABLE `cliente`
+  MODIFY `id_cliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `horario`
@@ -241,17 +269,17 @@ ALTER TABLE `terminal`
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- Restricciones para tablas volcadas
 --
 
 --
--- Filtros para la tabla `aministrador`
+-- Filtros para la tabla `administrador`
 --
-ALTER TABLE `aministrador`
-  ADD CONSTRAINT `aministrador_ibfk_1` FOREIGN KEY (`id_administrador`) REFERENCES `usuario` (`id_usuario`);
+ALTER TABLE `administrador`
+  ADD CONSTRAINT `administrador_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`);
 
 --
 -- Filtros para la tabla `boleto`
@@ -263,21 +291,15 @@ ALTER TABLE `boleto`
 -- Filtros para la tabla `cliente`
 --
 ALTER TABLE `cliente`
-  ADD CONSTRAINT `cliente_ibfk_1` FOREIGN KEY (`id_cliente`) REFERENCES `usuario` (`id_usuario`);
+  ADD CONSTRAINT `cliente_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`);
 
 --
 -- Filtros para la tabla `horario`
 --
 ALTER TABLE `horario`
   ADD CONSTRAINT `horario_ibfk_1` FOREIGN KEY (`terminal_origen`) REFERENCES `terminal` (`id_terminal`),
-  ADD CONSTRAINT `horario_ibfk_2` FOREIGN KEY (`terminal_destino`) REFERENCES `terminal` (`id_terminal`);
-
---
--- Filtros para la tabla `horario_autobuse`
---
-ALTER TABLE `horario_autobuse`
-  ADD CONSTRAINT `horario_autobuse_ibfk_1` FOREIGN KEY (`id_autobuse`) REFERENCES `autobuse` (`id_autobuse`),
-  ADD CONSTRAINT `horario_autobuse_ibfk_2` FOREIGN KEY (`id_horario`) REFERENCES `horario` (`id_horario`);
+  ADD CONSTRAINT `horario_ibfk_2` FOREIGN KEY (`terminal_destino`) REFERENCES `terminal` (`id_terminal`),
+  ADD CONSTRAINT `horario_ibfk_3` FOREIGN KEY (`id_autobuse`) REFERENCES `autobuse` (`id_autobuse`);
 
 --
 -- Filtros para la tabla `recibo`

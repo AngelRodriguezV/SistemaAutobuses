@@ -30,7 +30,7 @@ public class AdministradorFacade extends AbstractFacade<Administrador> {
         super(Administrador.class);
     }
     
-    public Administrador getAdministradorByUsuario(int idUsuario) {
+    public Administrador findByIdUsuario(int idUsuario) {
         TypedQuery<Administrador> query = em.createNamedQuery("Administrador.findByIdUsuario", Administrador.class);
         query.setParameter("idUsuario", idUsuario);
         List<Administrador> clientes = query.getResultList();

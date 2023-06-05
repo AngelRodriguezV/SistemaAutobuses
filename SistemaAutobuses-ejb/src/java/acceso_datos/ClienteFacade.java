@@ -30,7 +30,7 @@ public class ClienteFacade extends AbstractFacade<Cliente> {
         super(Cliente.class);
     }
     
-    public Cliente getClienteByUsuario(int idUsuario) {
+    public Cliente findByIdUsuario(Integer idUsuario) {
         TypedQuery<Cliente> query = em.createNamedQuery("Cliente.findByIdUsuario", Cliente.class);
         query.setParameter("idUsuario", idUsuario);
         List<Cliente> clientes = query.getResultList();

@@ -48,6 +48,7 @@ public class Login implements Serializable {
     public void validarUsuario() {
         Usuario aux = lnUsuario.finUsuarioValidar(usuario.getEmail(), usuario.getPassword());
         if (aux != null) {
+            System.out.println("Usuario Valido");
             usuario = aux;
             if (lnCliente.finClienteByUsuario((int)usuario.getIdUsuario()) != null) {
                 System.out.print("Session cliente");
@@ -56,5 +57,6 @@ public class Login implements Serializable {
                 System.out.print("Session Administrador");
             }
         }
+        System.out.println("Usuario Invalido");
     }
 }

@@ -36,6 +36,12 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Terminal.findByDireccion", query = "SELECT t FROM Terminal t WHERE t.direccion = :direccion")})
 public class Terminal implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "id_terminal")
+    private Integer idTerminal;
     @Size(max = 30)
     @Column(name = "nombre")
     private String nombre;
@@ -48,13 +54,6 @@ public class Terminal implements Serializable {
     @Size(max = 50)
     @Column(name = "direccion")
     private String direccion;
-
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "id_terminal")
-    private Integer idTerminal;
     @OneToMany(mappedBy = "terminalOrigen")
     private List<Horario> horarioList;
     @OneToMany(mappedBy = "terminalDestino")
@@ -75,6 +74,37 @@ public class Terminal implements Serializable {
         this.idTerminal = idTerminal;
     }
 
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    public String getCiudad() {
+        return ciudad;
+    }
+
+    public void setCiudad(String ciudad) {
+        this.ciudad = ciudad;
+    }
+
+    public String getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
+    }
 
     @XmlTransient
     public List<Horario> getHorarioList() {
@@ -117,38 +147,6 @@ public class Terminal implements Serializable {
     @Override
     public String toString() {
         return "modelo.Terminal[ idTerminal=" + idTerminal + " ]";
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getEstado() {
-        return estado;
-    }
-
-    public void setEstado(String estado) {
-        this.estado = estado;
-    }
-
-    public String getCiudad() {
-        return ciudad;
-    }
-
-    public void setCiudad(String ciudad) {
-        this.ciudad = ciudad;
-    }
-
-    public String getDireccion() {
-        return direccion;
-    }
-
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
     }
     
 }

@@ -38,12 +38,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Cliente.findByTelefono", query = "SELECT c FROM Cliente c WHERE c.telefono = :telefono"),
     @NamedQuery(name = "Cliente.findByDireccion", query = "SELECT c FROM Cliente c WHERE c.direccion = :direccion"),
     @NamedQuery(name = "Cliente.findByFechaIngreso", query = "SELECT c FROM Cliente c WHERE c.fechaIngreso = :fechaIngreso"),
-    @NamedQuery(name = "Cliente.findByIdUsuario", query = "SELECT c FROM Cliente c WHERE c.idUsuario = :idUsuario")})
+    @NamedQuery(name = "Cliente.findByIdUsuario", query = " SELECT c FROM Cliente c WHERE c.idUsuario.idUsuario = :idUsuario")})
 public class Cliente implements Serializable {
-
-    @Size(max = 50)
-    @Column(name = "direccion")
-    private String direccion;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -53,6 +49,9 @@ public class Cliente implements Serializable {
     private Integer idCliente;
     @Column(name = "telefono")
     private Integer telefono;
+    @Size(max = 50)
+    @Column(name = "direccion")
+    private String direccion;
     @Column(name = "fecha_ingreso")
     @Temporal(TemporalType.DATE)
     private Date fechaIngreso;
@@ -85,6 +84,13 @@ public class Cliente implements Serializable {
         this.telefono = telefono;
     }
 
+    public String getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
+    }
 
     public Date getFechaIngreso() {
         return fechaIngreso;
@@ -134,14 +140,6 @@ public class Cliente implements Serializable {
     @Override
     public String toString() {
         return "modelo.Cliente[ idCliente=" + idCliente + " ]";
-    }
-
-    public String getDireccion() {
-        return direccion;
-    }
-
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
     }
     
 }

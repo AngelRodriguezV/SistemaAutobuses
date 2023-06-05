@@ -56,6 +56,6 @@ public class LnAdministrador {
     }
  
     public Administrador finAdministradorByUsuario(int idUsuario) {
-        return administradorFacade.getAdministradorByUsuario(idUsuario);
+        return administradorFacade.findByIdUsuario(idUsuario);
     }
 }
